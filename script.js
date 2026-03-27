@@ -34,7 +34,7 @@ function parseSRT(data){
 
 subtitles = []
 
-const blocks = data.split("\n\n")
+const blocks = data.trim().split("\n\n")
 
 blocks.forEach(block=>{
 
@@ -47,7 +47,7 @@ const time = lines[1].split(" --> ")
 subtitles.push({
 start:parseTime(time[0]),
 end:parseTime(time[1]),
-text:lines.slice(2).join(" ")
+text:lines.slice(2) // nu bewaren we alle lijnen apart
 })
 
 }
@@ -68,10 +68,7 @@ subtitles.forEach(sub=>{
 const div = document.createElement("div")
 div.className="subtitle"
 
-div.innerHTML = `
-<div class="time">${sub.start} → ${sub.end}</div>
-<div>${sub.text}</div>
-`
+div.innerHTML = sub.text.join("<br>") // elke lijn onder elkaar
 
 subtitlesDiv.appendChild(div)
 
